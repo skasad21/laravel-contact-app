@@ -33,7 +33,9 @@
                   </tr>
                 </thead>
                 <tbody>
-
+                @if($message = session('messageContactCreated'))
+                    <div class="alert alert-success">{{$message}}</div>
+                @endif
                   @if($contacts->count())
 
                   @foreach($contacts as $index => $contact)
