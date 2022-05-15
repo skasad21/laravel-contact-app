@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-md-6"></div>
     <div class="col-md-6">
+      <form action="">
       <div class="row">
         <div class="col">
           <select id="filter_company_id" name="company_id" class="custom-select">
@@ -30,5 +31,6 @@
           </div>
         </div>
       </div>
+    </form>
     </div>
   </div>
