@@ -16,7 +16,11 @@ class ContactController extends Controller
             {
                 $query->where('company_id',$companyId);
             }
+            if ($search = request('search')) {
+                $query->where('first_name','LIKE',"%{$search}%");
+            }
         })->paginate(10);
+
         return view('contacts.index',compact('contacts','companies'));
     }
 
@@ -36,9 +40,9 @@ class ContactController extends Controller
         ]);
 
         Contact::create($request->all());
-        return redirect()->route('contacts.index')->with('messageContactCreated',"Contact has been added successfully");
+        return redirect()->route('contacts.index')->with('message',"Contact has been added successfully");
     }
-    
+
     public function edit($id){
         $contact = Contact::findOrFail($id);
         $companies = Company::orderBy('name')->pluck('name','id')->prepend('All Companies','');
@@ -57,12 +61,19 @@ class ContactController extends Controller
         $contact = Contact::findOrFail($id);
         //Contact::create($request->all());
         $contact->update($request->all());
-        return redirect()->route('contacts.index')->with('messageContactCreated',"Contact has been updated successfully");
+        return redirect()->route('contacts.index')->with('message',"Contact has been updated successfully");
 
     }
 
     public function show($id){
         $contact =  Contact::findOrFail($id);
         return view('contacts.show',compact('contact')); // ['contact' => $contact]
+    }
+
+    public function destroy($id){
+        $contact = Contact::findOrFail($id);
+        $contact->delete();
+
+        return back()->with('message','Contact has been deleted successfully');
     }
 }
