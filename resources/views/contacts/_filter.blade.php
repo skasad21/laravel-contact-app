@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-6"></div>
     <div class="col-md-6">
-      <form action="">
+      <form>
       <div class="row">
         <div class="col">
           <select id="filter_company_id" name="company_id" class="custom-select">
@@ -19,7 +19,7 @@
         </div>
         <div class="col">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="button-addon2">
+            <input type="text" name="search" id="search" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="button-addon2">
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="button">
                     <i class="fa fa-refresh"></i>
