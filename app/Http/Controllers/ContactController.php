@@ -9,18 +9,11 @@ use App\Models\Company;
 class ContactController extends Controller
 {
     public function index(){
-        $companies = Company::orderBy('name')->pluck('name','id')->prepend('All Companies','');
-        $contacts = Contact::orderBy('first_name','asc')->where(function($query)
-        {
-            if($companyId=request('company_id'))
-            {
-                $query->where('company_id',$companyId);
-            }
-            if ($search = request('search')) {
-                $query->where('first_name','LIKE',"%{$search}%");
-            }
-        })->paginate(10);
 
+        $companies = Company::orderBy('name')->pluck('name','id')->prepend('All Companies','');
+        // \DB::enableQueryLog();
+        $contacts = Contact::LatestFirst()->paginate(10);
+        // dd(\DB::getQueryLog());
         return view('contacts.index',compact('contacts','companies'));
     }
 
