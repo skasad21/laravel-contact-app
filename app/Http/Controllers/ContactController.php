@@ -6,14 +6,16 @@ use Illuminate\Http\Request;
 use App\Models\Contact;
 use App\Models\Company;
 
+use Illuminate\Support\Facades\DB;
+
 class ContactController extends Controller
 {
     public function index(){
 
         $companies = Company::orderBy('name')->pluck('name','id')->prepend('All Companies','');
-        // \DB::enableQueryLog();
+        //DB::enableQueryLog();
         $contacts = Contact::LatestFirst()->paginate(10);
-        // dd(\DB::getQueryLog());
+        //dd(DB::getQueryLog());
         return view('contacts.index',compact('contacts','companies'));
     }
 

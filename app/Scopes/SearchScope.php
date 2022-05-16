@@ -5,6 +5,7 @@ namespace App\Scopes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class SearchScope implements Scope{
 
@@ -12,8 +13,9 @@ class SearchScope implements Scope{
     public function apply(Builder $builder, Model $model){
         if ($search = request('search')) {
 
+            
             $columns = property_exists($model,'searchCollumns') ? $model->searchCollumns : $this->searchCollumns;
-
+            
             foreach($columns as $index => $column)
             {
                 $arr = explode('.',$column);
@@ -22,13 +24,16 @@ class SearchScope implements Scope{
                 {
                     $method .= "Has";
                     list($relationship,$col) = $arr;
-
+                    
                     $builder->$method($relationship,function($query) use($search, $col){
                         $query->where($col,'LIKE',"%{$search}%");
                     });
+                    
                 }
                 else{
+                   // DB::enableQueryLog();
                     $builder->$method($column,'LIKE',"%{$search}%");
+                    //dd(DB::getQueryLog());
                 }
 
             }
