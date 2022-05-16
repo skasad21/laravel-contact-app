@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::middleware('auth')->group(function () {
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -52,8 +52,13 @@ Route::put('/contacts/{id}',[ContactController::class,'update'])->name('contacts
 
 Route::delete('/contacts/{id}',[ContactController::class,'destroy'])->name('contacts.destroy');
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+});
+
+Auth::routes();
+
