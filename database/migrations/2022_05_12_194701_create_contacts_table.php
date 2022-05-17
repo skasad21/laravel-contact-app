@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('phone')->nullable();
@@ -24,6 +25,7 @@ return new class extends Migration
             //$table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->timestamps();
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             // ON DELETE CASCADE rule to your database which specifies that the child data gets deleted when the parent data is deleted
         });
     }

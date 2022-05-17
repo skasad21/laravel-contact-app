@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -41,4 +44,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function contacts(){
+        return $this->hasMany(Contact::class);
+    }
+    
+    public function companies(){
+        return $this->hasMany(Company::class);
+    }
+    // public function com_test(){
+    //     return DB::select('select * from companies where user_id = ?', [1]);
+    // }
 }
